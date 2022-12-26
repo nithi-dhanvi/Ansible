@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+       environment { 
+
+        registry = "santu458/santuappdock" 
+        registryCredential = 'dockerhubID' 
+        dockerImage = '' 
+
+    }
+
+    stages {
+        stage ("Git Checkout") {
+            steps {
+                git branch: "master", url: "https://github.com/nithi-dhanvi/Ansible.git"
+            }
+        }
+        stage ("Maven Build") {
+        
+            steps {
+                sh "/opt/apache-maven-3.6.3/bin/mvn clean package -DskipTests=true"
+                sh "id -a"
+            }
+}
+}
